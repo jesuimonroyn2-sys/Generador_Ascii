@@ -4,9 +4,9 @@
   --borde: #2a2a35;
   --texto: #f5f5f7;
   --suave: #9a9aa8;
-  --magenta: #94287e;
+  --magenta: #ff2bd6;
   --violeta: #8a5cff;
-  --cian: #208393;
+  --cian: #20d3ee;
   --ascii: #e6e6f0;
   --mono: "Cascadia Mono", Consolas, "Courier New", monospace;
   --sans: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
@@ -32,13 +32,11 @@ body { font-family: var(--sans); font-size: 16px; line-height: 1.5; min-height: 
 
 /* Columna izquierda */
 h1 { font-size: clamp(40px, 5vw, 64px); line-height: 1.05; margin: 0 0 20px; font-weight: 500; letter-spacing: -0.03em; }
-.neon {
-  background: linear-gradient(90deg, var(--magenta), var(--violeta) 55%, var(--cian));
+/* Metálico suave: bandas claras y oscuras de lavanda, como metal pulido */
+.metal {
+  background: linear-gradient(160deg, #f4efff 0%, #c4b0ff 28%, #8f6cf0 52%, #d9ccff 72%, #9a7df2 100%);
   -webkit-background-clip: text; background-clip: text; color: transparent;
-}
-.suave {
-  background: linear-gradient(180deg, #fff 30%, #8d8d99);
-  -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 0 28px rgba(138, 92, 255, .35));
 }
 .texto { color: var(--suave); max-width: 42ch; margin: 0 0 28px; }
 
@@ -70,11 +68,23 @@ select { width: 100%; font: inherit; font-size: 14px; padding: 9px 10px; backgro
 .puntos i { width: 10px; height: 10px; border-radius: 50%; background: #3a3a46; }
 .titulo { flex: 1; text-align: center; color: var(--suave); font: 13px var(--mono); }
 .mini { font: 13px var(--sans); color: var(--texto); background: transparent; border: 1px solid var(--borde); border-radius: 999px; padding: 4px 14px; cursor: pointer; }
+.mini[hidden] { display: none; }
 .mini:hover:not(:disabled) { border-color: var(--violeta); }
 .cuerpo { padding: 20px; min-height: 420px; max-height: 78vh; overflow: auto; display: flex; }
 #vacio { margin: auto; text-align: center; color: var(--suave); }
 #vacio span { font-size: 14px; opacity: .7; }
 #arte { display: none; margin: 0; font-family: var(--mono); line-height: 1; white-space: pre; color: var(--ascii); }
+
+/* Efecto "brillo": una franja de luz que cruza la ventana */
+.ventana { position: relative; }
+.ventana.brillo::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen;
+  background: linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, .22) 50%, transparent 65%);
+  background-size: 250% 100%;
+  animation: barrido 3.5s ease-in-out infinite;
+}
+@keyframes barrido { from { background-position: 150% 0; } to { background-position: -50% 0; } }
+@media (prefers-reduced-motion: reduce) { .ventana.brillo::after { display: none; } }
 
 button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--cian); outline-offset: 2px; }
 
@@ -82,3 +92,33 @@ button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px s
   .pagina { grid-template-columns: 1fr; padding: 32px 20px; gap: 32px; }
   .cuerpo { min-height: 280px; }
 }
+
+/* Pestañas y Mi galería */
+.pagina[hidden], .galeria[hidden] { display: none; }
+.nav { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; padding: 24px 40px 0; display: flex; gap: 8px; }
+.tab { font: inherit; font-size: 15px; color: var(--suave); background: transparent; border: 1px solid var(--borde); border-radius: 999px; padding: 8px 18px; cursor: pointer; }
+.tab.activo { color: #000; background: #fff; border-color: #fff; }
+.tab:hover:not(.activo) { color: var(--texto); border-color: var(--violeta); }
+.tab:focus-visible { outline: 2px solid var(--cian); outline-offset: 2px; }
+.galeria { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; padding: 40px; }
+.galeria-cab { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 28px; }
+.galeria-cab h2 { margin: 0 auto 0 0; font-size: 36px; font-weight: 500; letter-spacing: -0.02em; }
+.rejilla { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+.obra { background: var(--ventana); border: 1px solid var(--borde); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; }
+.obra .vista { height: 170px; padding: 12px; overflow: hidden; background: #0b0b10; cursor: pointer; }
+.obra .vista pre { margin: 0; font-family: var(--mono); line-height: 1; white-space: pre; color: var(--ascii); }
+.obra .datos { padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 2px; }
+.obra h3 { margin: 0; font-size: 16px; font-weight: 500; overflow-wrap: anywhere; }
+.obra .fecha { color: var(--suave); font-size: 13px; }
+.obra .acciones { display: flex; gap: 8px; margin-top: 10px; }
+.obra .acciones .mini { flex: 1; padding: 6px; }
+.sinobras { color: var(--suave); }
+@media (max-width: 900px) {
+  .nav { padding: 16px 20px 0; }
+  .galeria { padding: 24px 20px; }
+}
+
+.btn[hidden] { display: none; }
+
+/* Resplandor: cada carácter proyecta su propio color */
+#arte.luz { text-shadow: 0 0 7px currentColor; }

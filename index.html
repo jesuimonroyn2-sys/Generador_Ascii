@@ -11,14 +11,21 @@
 <body>
 <div class="brillo" aria-hidden="true"></div>
 
-<div class="pagina">
+<nav class="nav">
+  <button class="tab activo" data-vista="crear">Generador</button>
+  <button class="tab" data-vista="galeria">Mi galería <span id="cuenta"></span></button>
+</nav>
+
+<div class="pagina" id="vistaCrear">
   <section class="intro">
     <h1 class="metal">Generador<br>ASCII</h1>
-    <p class="texto">Sube una foto</p>
+    <p class="texto">Sube una foto .</p>
 
     <div class="botones">
       <button id="elegir" class="btn blanco">Elegir imagen</button>
-      <button id="descargar" class="btn borde" disabled>Descargar .txt</button>
+      <button id="descargarPng" class="btn borde" disabled>Descargar imagen</button>
+      <button id="guardar" class="btn borde" disabled>Guardar en mi galería</button>
+      <button id="descargarGif" class="btn borde" hidden>Descargar GIF</button>
     </div>
     <input type="file" id="archivo" accept="image/*" hidden>
 
@@ -31,14 +38,36 @@
         <label for="rampa">Caracteres</label>
         <select id="rampa">
           <option value="@%#*+=-:. ">Clásico: @%#*+=-:.</option>
+          <option value="#0Oxo*+:,. ">Luz: #0Oxo*+:,.</option>
           <option value="█▓▒░ ">Bloques: █▓▒░</option>
           <option value="@#S%?*+;:,. ">Detallado</option>
           <option value="01 ">Binario: 0 y 1</option>
         </select>
       </div>
+      <div>
+        <label for="estilo">Estilo</label>
+        <select id="estilo">
+          <option value="luminoso">Luminoso: solo lo brillante</option>
+          <option value="clasico">Clásico: toda la imagen</option>
+        </select>
+      </div>
+      <div id="cajaCorte">
+        <label for="corte">Ocultar zonas oscuras <b id="corteVal">15%</b></label>
+        <input type="range" id="corte" min="0" max="60" value="15">
+      </div>
+      <div>
+        <label for="efecto">Efecto</label>
+        <select id="efecto">
+          <option value="descifrar">Descifrar</option>
+          <option value="escribir">Escribir</option>
+          <option value="brillo">Brillo</option>
+          <option value="ninguno">Ninguno</option>
+        </select>
+      </div>
       <div class="opciones">
         <label class="check"><input type="checkbox" id="invertir"> Invertir claros y oscuros</label>
-        <label class="check"><input type="checkbox" id="color"> Color</label>
+        <label class="check"><input type="checkbox" id="color" checked> Color</label>
+        <label class="check"><input type="checkbox" id="luz" checked> Resplandor</label>
       </div>
     </div>
   </section>
@@ -47,14 +76,26 @@
     <header class="barra">
       <span class="puntos" aria-hidden="true"><i></i><i></i><i></i></span>
       <span class="titulo">resultado.txt</span>
+      <button id="repetir" class="mini" hidden>Repetir</button>
+      <button id="pausa" class="mini" hidden>Pausar</button>
       <button id="copiar" class="mini" disabled>Copiar</button>
     </header>
     <div class="cuerpo">
-      <p id="vacio">Arrastra una imagen aquí<br>o usa el botón “Elegir imagen”.<br><span>Funciona mejor con buen contraste.</span></p>
+      <p id="vacio">Arrastra una imagen<br><br><span> </span></p>
       <pre id="arte" aria-label="Arte ASCII"></pre>
     </div>
   </section>
 </div>
+
+<section class="galeria" id="vistaGaleria" hidden aria-label="Mi galería">
+  <div class="galeria-cab">
+    <h2 class="metal">Mi galería</h2>
+    <button id="exportar" class="btn borde">Exportar respaldo</button>
+    <button id="importarBtn" class="btn borde">Importar respaldo</button>
+    <input type="file" id="importar" accept="application/json,.json" hidden>
+  </div>
+  <div class="rejilla" id="rejilla"></div>
+</section>
 
 <script src="script.js"></script>
 </body>
