@@ -4,9 +4,9 @@
   --borde: #2a2a35;
   --texto: #f5f5f7;
   --suave: #9a9aa8;
-  --magenta: #ff2bd6;
+  --magenta: #94287e;
   --violeta: #8a5cff;
-  --cian: #20d3ee;
+  --cian: #208393;
   --ascii: #e6e6f0;
   --mono: "Cascadia Mono", Consolas, "Courier New", monospace;
   --sans: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
@@ -32,11 +32,13 @@ body { font-family: var(--sans); font-size: 16px; line-height: 1.5; min-height: 
 
 /* Columna izquierda */
 h1 { font-size: clamp(40px, 5vw, 64px); line-height: 1.05; margin: 0 0 20px; font-weight: 500; letter-spacing: -0.03em; }
-/* Metálico suave: bandas claras y oscuras de lavanda, como metal pulido */
-.metal {
-  background: linear-gradient(160deg, #f4efff 0%, #c4b0ff 28%, #8f6cf0 52%, #d9ccff 72%, #9a7df2 100%);
+.neon {
+  background: linear-gradient(90deg, var(--magenta), var(--violeta) 55%, var(--cian));
   -webkit-background-clip: text; background-clip: text; color: transparent;
-  filter: drop-shadow(0 0 28px rgba(138, 92, 255, .35));
+}
+.suave {
+  background: linear-gradient(180deg, #fff 30%, #8d8d99);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
 }
 .texto { color: var(--suave); max-width: 42ch; margin: 0 0 28px; }
 
