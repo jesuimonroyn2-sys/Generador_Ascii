@@ -1,0 +1,82 @@
+:root {
+  --fondo: #050507;
+  --ventana: #14141a;
+  --borde: #2a2a35;
+  --texto: #f5f5f7;
+  --suave: #9a9aa8;
+  --magenta: #ff2bd6;
+  --violeta: #8a5cff;
+  --cian: #20d3ee;
+  --ascii: #e6e6f0;
+  --mono: "Cascadia Mono", Consolas, "Courier New", monospace;
+  --sans: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--fondo); color: var(--texto); }
+body { font-family: var(--sans); font-size: 16px; line-height: 1.5; min-height: 100vh; overflow-x: hidden; }
+
+/* Resplandor que sube desde abajo */
+.brillo {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(60% 45% at 25% 105%, rgba(138, 92, 255, .55), transparent 70%),
+    radial-gradient(45% 35% at 70% 110%, rgba(255, 43, 214, .35), transparent 70%),
+    radial-gradient(35% 25% at 95% 100%, rgba(32, 211, 238, .22), transparent 70%);
+}
+
+.pagina {
+  position: relative; z-index: 1;
+  max-width: 1400px; margin: 0 auto; padding: 56px 40px;
+  display: grid; grid-template-columns: minmax(300px, 420px) 1fr; gap: 48px; align-items: start;
+}
+
+/* Columna izquierda */
+h1 { font-size: clamp(40px, 5vw, 64px); line-height: 1.05; margin: 0 0 20px; font-weight: 500; letter-spacing: -0.03em; }
+/* Metálico suave: bandas claras y oscuras de lavanda, como metal pulido */
+.metal {
+  background: linear-gradient(160deg, #f4efff 0%, #c4b0ff 28%, #8f6cf0 52%, #d9ccff 72%, #9a7df2 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 0 28px rgba(138, 92, 255, .35));
+}
+.texto { color: var(--suave); max-width: 42ch; margin: 0 0 28px; }
+
+.botones { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 32px; }
+.btn { font: inherit; font-weight: 500; padding: 12px 24px; border-radius: 999px; cursor: pointer; transition: transform .12s, background .15s; }
+.btn.blanco { background: #fff; color: #000; border: 0; }
+.btn.borde { background: transparent; color: var(--texto); border: 1px solid var(--violeta); }
+.btn:hover:not(:disabled) { transform: translateY(-1px); }
+.btn.borde:hover:not(:disabled) { background: rgba(138, 92, 255, .15); }
+.btn:disabled, .mini:disabled { opacity: .4; cursor: not-allowed; }
+
+.controles { display: flex; flex-direction: column; gap: 18px; max-width: 360px; }
+label { display: block; color: var(--suave); margin-bottom: 6px; font-size: 14px; }
+label b { color: var(--texto); font-weight: 500; float: right; }
+input[type=range] { width: 100%; accent-color: var(--violeta); }
+select { width: 100%; font: inherit; font-size: 14px; padding: 9px 10px; background: var(--ventana); color: var(--texto); border: 1px solid var(--borde); border-radius: 10px; }
+.opciones { display: flex; flex-wrap: wrap; gap: 8px 22px; }
+.check { display: flex; align-items: center; gap: 8px; color: var(--texto); margin: 0; cursor: pointer; }
+.check input { accent-color: var(--violeta); }
+
+/* Ventana del resultado */
+.ventana {
+  background: var(--ventana); border: 1px solid var(--borde); border-radius: 16px; overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, .55); transition: border-color .15s, box-shadow .15s;
+}
+.ventana.sobre { border-color: var(--violeta); box-shadow: 0 0 0 3px rgba(138, 92, 255, .3), 0 30px 80px rgba(0, 0, 0, .55); }
+.barra { display: flex; align-items: center; gap: 14px; padding: 10px 14px; border-bottom: 1px solid var(--borde); }
+.puntos { display: flex; gap: 6px; }
+.puntos i { width: 10px; height: 10px; border-radius: 50%; background: #3a3a46; }
+.titulo { flex: 1; text-align: center; color: var(--suave); font: 13px var(--mono); }
+.mini { font: 13px var(--sans); color: var(--texto); background: transparent; border: 1px solid var(--borde); border-radius: 999px; padding: 4px 14px; cursor: pointer; }
+.mini:hover:not(:disabled) { border-color: var(--violeta); }
+.cuerpo { padding: 20px; min-height: 420px; max-height: 78vh; overflow: auto; display: flex; }
+#vacio { margin: auto; text-align: center; color: var(--suave); }
+#vacio span { font-size: 14px; opacity: .7; }
+#arte { display: none; margin: 0; font-family: var(--mono); line-height: 1; white-space: pre; color: var(--ascii); }
+
+button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--cian); outline-offset: 2px; }
+
+@media (max-width: 900px) {
+  .pagina { grid-template-columns: 1fr; padding: 32px 20px; gap: 32px; }
+  .cuerpo { min-height: 280px; }
+}

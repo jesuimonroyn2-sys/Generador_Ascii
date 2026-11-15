@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Generador ASCII</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="brillo" aria-hidden="true"></div>
+
+<div class="pagina">
+  <section class="intro">
+    <h1 class="metal">Generador<br>ASCII</h1>
+    <p class="texto">Sube una foto</p>
+
+    <div class="botones">
+      <button id="elegir" class="btn blanco">Elegir imagen</button>
+      <button id="descargar" class="btn borde" disabled>Descargar .txt</button>
+    </div>
+    <input type="file" id="archivo" accept="image/*" hidden>
+
+    <div class="controles">
+      <div>
+        <label for="ancho">Ancho en caracteres <b id="anchoVal">100</b></label>
+        <input type="range" id="ancho" min="30" max="250" value="100">
+      </div>
+      <div>
+        <label for="rampa">Caracteres</label>
+        <select id="rampa">
+          <option value="@%#*+=-:. ">Clásico: @%#*+=-:.</option>
+          <option value="█▓▒░ ">Bloques: █▓▒░</option>
+          <option value="@#S%?*+;:,. ">Detallado</option>
+          <option value="01 ">Binario: 0 y 1</option>
+        </select>
+      </div>
+      <div class="opciones">
+        <label class="check"><input type="checkbox" id="invertir"> Invertir claros y oscuros</label>
+        <label class="check"><input type="checkbox" id="color"> Color</label>
+      </div>
+    </div>
+  </section>
+
+  <section class="ventana" id="ventana" aria-label="Resultado">
+    <header class="barra">
+      <span class="puntos" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="titulo">resultado.txt</span>
+      <button id="copiar" class="mini" disabled>Copiar</button>
+    </header>
+    <div class="cuerpo">
+      <p id="vacio">Arrastra una imagen aquí<br>o usa el botón “Elegir imagen”.<br><span>Funciona mejor con buen contraste.</span></p>
+      <pre id="arte" aria-label="Arte ASCII"></pre>
+    </div>
+  </section>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
